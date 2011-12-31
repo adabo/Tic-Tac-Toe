@@ -12,17 +12,17 @@
 
 ;Initialize {
 	table := ""
-	.     |     |
- 	. o   |  x  |  o
- 	.     |     |
-	. ----------------
- 	.     |     |
- 	. o   |  x  |  o
- 	.     |     |
-	. ----------------
- 	.     |     |
- 	. o   |  x  |  o
- 	.     |     |
+	. "     |     |`n"
+ 	. " o   |  x  |  o`n"
+ 	. "     |     |`n"
+	. " ----------------`n"
+ 	. "     |     |`n"
+ 	. " o   |  x  |  o`n"
+ 	. "     |     |`n"
+	. " ----------------`n"
+ 	. "     |     |`n"
+ 	. " o   |  x  |  o`n"
+ 	. "     |     |`n"
 ;}
 
 ;Main GUI {
@@ -37,7 +37,7 @@
 	mGui(){
 	Global table
 	Gui, 1: Font, s10, Lucida Console
-	Gui, 1: Add, Text,, %table%
-	Gui, 1: Show, w400 h300
+	Gui, 1: Add, Text, w350 h250, %table%
+	Gui, 1: Show, w170 h170
 	}
 ;}
