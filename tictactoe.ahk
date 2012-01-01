@@ -147,35 +147,21 @@
 		If (!i)
 			Return
 		If (array["t1"] == array["t2"] && array["t1"] == array["t3"]) && (array["t1"] != null)
-		{
-			ToolTip, Winner! (Top Across)
-			clearGui()
-		}
+			clearGui("Top Across")
 		If (array["t4"] == array["t5"] && array["t4"] == array["t6"]) && (array["t4"] != null)
-		{
-			ToolTip, Winner! (Middle Across)
-			clearGui()
-		}
+			clearGui("Middle Across")
 		If (array["t7"] == array["t8"] && array["t7"] == array["t9"]) && (array["t7"] != null)
-		{
-			ToolTip, Winner! (Bottom Across)
-			clearGui()
-		}
+			clearGui("Bottom Across")
 		If (array["t1"] == array["t4"] && array["t1"] == array["t7"]) && (array ["t1"] != null)
-		{
-			ToolTip, Winner! (Left Down
-			clearGui()
-		}
+			clearGui("Left Down")
 		If (array["t1"] == array["t5"] && array["t1"] == array["t9"]) && (array ["t1"] != null)
-		{
-			ToolTip, Winner! (Diagonal Top Left)
-			clearGui()
-		}
+			clearGui("Top Left to Bottom Right")
 		i := null
 	}
 
-	clearGui(){
+	clearGui(wintype){
 		Global
+		ToolTip, Winner! (%wintype%)
 		For key, value in array
 			GuiControl,, edGmTbl, % gameTable(key, "")
 	}
