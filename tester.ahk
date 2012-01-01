@@ -39,21 +39,21 @@ xoGui(mx, my, mbt){
 	mbt := mbt == "lBt" ? "x" : "o"
 	If (mx < 50 && my < 75)
 		GuiControl,, edGmTbl, % gameTable( "t1", mbt)
-	If (mx > 50 && mx < 105 && my < 75)
+	If (mx > 60 && mx < 105 && my < 75)
 		GuiControl,, edGmTbl, % gameTable( "t2", mbt)
 	If (mx > 110 && my < 75)
 		GuiControl,, edGmTbl, % gameTable( "t3", mbt)
 	If (mx < 50 && my > 80 && my < 120)
 		GuiControl,, edGmTbl, % gameTable( "t4", mbt)
-	If ()
+	If (mx > 60 && mx < 100 && my > 80 && my < 120)
 		GuiControl,, edGmTbl, % gameTable( "t5", mbt)
-	If ()
+	If (mx > 110 && my > 80 && my < 120)
 		GuiControl,, edGmTbl, % gameTable( "t6", mbt)
-	If ()
+	If (mx < 50 && my > 130)
 		GuiControl,, edGmTbl, % gameTable( "t7", mbt)
-	If ()
+	If (mx > 60 && mx < 100 && my > 130)
 		GuiControl,, edGmTbl, % gameTable( "t8", mbt)
-	If ()
+	If (mx > 110 && my > 130)
 		GuiControl,, edGmTbl, % gameTable( "t9", mbt)
 }
 
@@ -61,11 +61,11 @@ gameTable(k, v){
 	Global
 	array[k] := v
 	sp1 := array["t1"] == null ? "    " : "   "
-	sp2 := array["t2"] == null ? "   | " : "  |  "
+	sp2 := array["t2"] == null ? "   |  " : "  |  "
 	sp4 := array["t4"] == null ? "    " : "   "
-	sp5 := array["t5"] == null ? "   | " : "  |  "
+	sp5 := array["t5"] == null ? "   |  " : "  |  "
 	sp7 := array["t7"] == null ? "    " : "   "
-	sp8 := array["t8"] == null ? "   | " : "  |  "
+	sp8 := array["t8"] == null ? "   |  " : "  |  "
 	Return, ""
  	. "     |     |`n"
  	. sp1 . array["t1"] . " |  " . array["t2"] . sp2 . array["t3"] . "`n"
