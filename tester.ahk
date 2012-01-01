@@ -24,14 +24,12 @@ Gui, 1: Show, w170 h170
 WM_LBUTTONDOWN(){
 	Global
 	MouseGetPos, mposx, mposy,, guiCtrl
-	ToolTip, %mposx% %mposy%
 	xoGui(mposx, mposy, "lBt")
 }
 
 WM_RBUTTONDOWN(){
 	Global
 	MouseGetPos, mposx, mposy,, guiCtrl
-	ToolTip, %mposx% %mposy%
 	xoGui(mposx, mposy, "rBt")
 }
 
@@ -43,9 +41,9 @@ xoGui(mx, my, mbt){
 		GuiControl,, edGmTbl, % gameTable( "t1", mbt)
 	If (mx > 50 && mx < 105 && my < 75)
 		GuiControl,, edGmTbl, % gameTable( "t2", mbt)
-	If ()
+	If (mx > 110 && my < 75)
 		GuiControl,, edGmTbl, % gameTable( "t3", mbt)
-	If ()
+	If (mx < 50 && my > 80 && my < 120)
 		GuiControl,, edGmTbl, % gameTable( "t4", mbt)
 	If ()
 		GuiControl,, edGmTbl, % gameTable( "t5", mbt)
@@ -63,22 +61,22 @@ gameTable(k, v){
 	Global
 	array[k] := v
 	sp1 := array["t1"] == null ? "    " : "   "
-	sp2 := array["t2"] == null ? "    | " : "   | "
+	sp2 := array["t2"] == null ? "   | " : "  |  "
 	sp4 := array["t4"] == null ? "    " : "   "
-	sp5 := array["t5"] == null ? "    | " : "   | "
+	sp5 := array["t5"] == null ? "   | " : "  |  "
 	sp7 := array["t7"] == null ? "    " : "   "
-	sp8 := array["t8"] == null ? "    | " : "   | "
+	sp8 := array["t8"] == null ? "   | " : "  |  "
 	Return, ""
  	. "     |     |`n"
- 	. sp1 . array["t1"] . " | " . array["t2"] . sp2 . array["t3"] . "`n"
+ 	. sp1 . array["t1"] . " |  " . array["t2"] . sp2 . array["t3"] . "`n"
  	. "     |     |`n"
 	. " ----------------`n"
  	. "     |     |`n"
- 	. sp4 . array["t4"] . " | " . array["t5"] . sp5 . array["t6"] . "`n"
+ 	. sp4 . array["t4"] . " |  " . array["t5"] . sp5 . array["t6"] . "`n"
  	. "     |     |`n"
 	. " ----------------`n"
  	. "     |     |`n"
- 	. sp7 . array["t7"] . " | " . array["t8"] . sp8 . array["t9"] . "`n"
+ 	. sp7 . array["t7"] . " |  " . array["t8"] . sp8 . array["t9"] . "`n"
  	. "     |     |`n"
 }
 
