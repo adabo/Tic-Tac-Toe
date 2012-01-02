@@ -1,64 +1,46 @@
-CoordMode, Mouse, Relative
-
 null := ""
 
-array := Object("t1", ""
-			   ,"t2", ""
-			   ,"t3", ""
-			   ,"t4", ""
-			   ,"t5", ""
-			   ,"t6", ""
-			   ,"t7", ""
-			   ,"t8", "")
-
-;msgbox, % (array["t1"] == null) ? "++++" : "+++" . array["t1"]
-
-OnMessage(0x0201, "WM_LBUTTONDOWN")
-OnMessage(0x0204, "WM_RBUTTONDOWN")
-
-Gui, 1: Font, s10, Lucida Console
-Gui, 1: Add, Text, w350 h250 vedGmTbl, % gameTable("", "z")
-Gui, 1: Show, w170 h170
-
-
-WM_LBUTTONDOWN(){
-	Global
-	MouseGetPos, mposx, mposy,, guiCtrl
-	xoGui(mposx, mposy, "lBt")
-}
-
-WM_RBUTTONDOWN(){
-	Global
-	MouseGetPos, mposx, mposy,, guiCtrl
-	xoGui(mposx, mposy, "rBt")
-}
+ar_Coords := Object("crd1", "(mx < 50 && my < 75)"
+			  , "crd2", "(mx > 60 && mx < 105 && my < 75)"
+			  , "crd3", "(mx > 110 && my < 75)"
+			  , "crd4", "(mx < 50 && my > 80 && my < 120)"
+			  , "crd5", "(mx > 60 && mx < 100 && my > 80 && my < 120)"
+			  , "crd6", "(mx > 110 && my > 80 && my < 120)"
+			  , "crd7", "(mx < 50 && my > 130)"
+			  , "crd8", "(mx > 60 && mx < 100 && my > 130)"
+			  , "crd9", "(mx > 110 && my > 130)"
 
 xoGui(mx, my, mbt){
-	;We store "x" or "y" in var "mbt" depending if the user
-	;clicks left or right respectively.
-	mbt := mbt == "lBt" ? "x" : "o"
 	If (mx < 50 && my < 75)
-		GuiControl,, edGmTbl, % gameTable( "t1", mbt)
-	If (mx > 60 && mx < 105 && my < 75)
-		GuiControl,, edGmTbl, % gameTable( "t2", mbt)
-	If (mx > 110 && my < 75)
-		GuiControl,, edGmTbl, % gameTable( "t3", mbt)
-	If (mx < 50 && my > 80 && my < 120)
-		GuiControl,, edGmTbl, % gameTable( "t4", mbt)
-	If (mx > 60 && mx < 100 && my > 80 && my < 120)
-		GuiControl,, edGmTbl, % gameTable( "t5", mbt)
-	If (mx > 110 && my > 80 && my < 120)
-		GuiControl,, edGmTbl, % gameTable( "t6", mbt)
-	If (mx < 50 && my > 130)
-		GuiControl,, edGmTbl, % gameTable( "t7", mbt)
-	If (mx > 60 && mx < 100 && my > 130)
-		GuiControl,, edGmTbl, % gameTable( "t8", mbt)
-	If (mx > 110 && my > 130)
-		GuiControl,, edGmTbl, % gameTable( "t9", mbt)
+	Else If (mx > 60 && mx < 105 && my < 75)
+		CoordChecker("t1", mbt)
+	Else If (mx > 110 && my < 75)
+		CoordChecker("t2", mbt)
+	Else If (mx < 50 && my > 80 && my < 120)
+		CoordChecker("t3", mbt)
+	Else If (mx > 60 && mx < 100 && my > 80 && my < 120)
+		CoordChecker("t4", mbt)
+	Else If (mx > 110 && my > 80 && my < 120)
+		CoordChecker("t5", mbt)
+	Else If (mx < 50 && my > 130)
+		CoordChecker("t6", mbt)
+	Else If (mx > 60 && mx < 100 && my > 130)
+		CoordChecker("t7", mbt)
+	Else If (mx > 110 && my > 130)
+		CoordChecker("t8", mbt)
+	Return
+}
+
+CoordChecker(){
+	GuiControl,, edGmTbl, % gameTable("t1", mbt)
+	array["t1"] := mbt
 }
 
 gameTable(k, v){
 	Global
+	;We need to compensate for when the script adds the
+	;x or o character to the grid. Otherwise the grid
+	;would become unaligned.
 	array[k] := v
 	sp1 := array["t1"] == null ? "    " : "   "
 	sp2 := array["t2"] == null ? "   |  " : "  |  "
@@ -66,6 +48,7 @@ gameTable(k, v){
 	sp5 := array["t5"] == null ? "   |  " : "  |  "
 	sp7 := array["t7"] == null ? "    " : "   "
 	sp8 := array["t8"] == null ? "   |  " : "  |  "
+	sp9 := array["t9"] == null ? "    " : "   "
 	Return, ""
  	. "     |     |`n"
  	. sp1 . array["t1"] . " |  " . array["t2"] . sp2 . array["t3"] . "`n"
@@ -78,32 +61,6 @@ gameTable(k, v){
  	. "     |     |`n"
  	. sp7 . array["t7"] . " |  " . array["t8"] . sp8 . array["t9"] . "`n"
  	. "     |     |`n"
+ 	Return
 }
 
-/* Coordinates (x over y)
-     |     |
- 10  |  60 |  110
- 35  |  35 |  35
- ----------------
-     |     |
- 10  |  60 |  110
- 80  |  80 |  80
- ----------------
-     |     |
- 10  |  60 |  110
- 130 |  130|  130
-
-
- 	. "     |     |`n"
- 	. v == null ? "++++" : "+++" . array["t1"] . " | " . array["t2"] . "    | " . array["t3"] . "`n"
- 	. "     |     |`n"
-	. " ----------------`n"
- 	. "     |     |`n"
- 	. v == null ? "++++" : "+++" . array["t4"] . " | " . array["t5"] . "    | " . array["t6"] . "`n"
- 	. "     |     |`n"
-	. " ----------------`n"
- 	. "     |     |`n"
- 	. v == null ? "++++" : "+++" . array["t7"] . " | " . array["t8"] . "    | " . array["t9"] . "`n"
- 	. "     |     |`n"
-
- */

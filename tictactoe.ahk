@@ -35,7 +35,7 @@
 	mGui(){
 		Global
 		Gui, 1: Font, s10, Lucida Console
-		Gui, 1: Add, Text, w350 h250 vedGmTbl, % gameTable("", "")
+		Gui, 1: Add, Text, w350 h250 vedGmTbl, % drawTable("", "")
 		Gui, 1: Show, w170 h170
 		Return
 	}
@@ -43,7 +43,7 @@
 	WM_LBUTTONDOWN(){
 		Global
 		MouseGetPos, mposx, mposy
-		xoGui(mposx, mposy, "lBt")
+		getCoord(mposx, mposy, "lBt")
 		checkWinner()
 		Return
 	}
@@ -51,65 +51,65 @@
 	WM_RBUTTONDOWN(){
 		Global
 		MouseGetPos, mposx, mposy
-		xoGui(mposx, mposy, "rBt")
+		getCoord(mposx, mposy, "rBt")
 		checkWinner()
 		Return
 	}
 
-	xoGui(mx, my, mbt){
+	getCoord(mx, my, mbt){
+		Global
 		;We store "x" or "o" in var "mbt" depending if the user
 		;clicks left or right respectively.
-		Global
 		mbt := mbt == "lBt" ? "x" : "o"
 		If (mx < 50 && my < 75)
 		{
-			GuiControl,, edGmTbl, % gameTable("t1", mbt)
+			GuiControl,, edGmTbl, % drawTable("t1", mbt)
 			array["t1"] := mbt
 		}
 		Else If (mx > 60 && mx < 105 && my < 75)
 		{
-			GuiControl,, edGmTbl, % gameTable("t2", mbt)
+			GuiControl,, edGmTbl, % drawTable("t2", mbt)
 			array["t2"] := mbt
 		}
 		Else If (mx > 110 && my < 75)
 		{
-			GuiControl,, edGmTbl, % gameTable("t3", mbt)
+			GuiControl,, edGmTbl, % drawTable("t3", mbt)
 			array["t3"] := mbt
 		}
 		Else If (mx < 50 && my > 80 && my < 120)
 		{
-			GuiControl,, edGmTbl, % gameTable("t4", mbt)
+			GuiControl,, edGmTbl, % drawTable("t4", mbt)
 			array["t4"] := mbt
 		}
 		Else If (mx > 60 && mx < 100 && my > 80 && my < 120)
 		{
-			GuiControl,, edGmTbl, % gameTable("t5", mbt)
+			GuiControl,, edGmTbl, % drawTable("t5", mbt)
 			array["t5"] := mbt
 		}
 		Else If (mx > 110 && my > 80 && my < 120)
 		{
-			GuiControl,, edGmTbl, % gameTable("t6", mbt)
+			GuiControl,, edGmTbl, % drawTable("t6", mbt)
 			array["t6"] := mbt
 		}
 		Else If (mx < 50 && my > 130)
 		{
-			GuiControl,, edGmTbl, % gameTable("t7", mbt)
+			GuiControl,, edGmTbl, % drawTable("t7", mbt)
 			array["t7"] := mbt
 		}
 		Else If (mx > 60 && mx < 100 && my > 130)
 		{
-			GuiControl,, edGmTbl, % gameTable("t8", mbt)
+			GuiControl,, edGmTbl, % drawTable("t8", mbt)
 			array["t8"] := mbt
 		}
 		Else If (mx > 110 && my > 130)
 		{
-			GuiControl,, edGmTbl, % gameTable("t9", mbt)
+			GuiControl,, edGmTbl, % drawTable("t9", mbt)
 			array["t9"] := mbt
 		}
 		Return
 	}
 
-	gameTable(k, v){
+	drawTable(k, v){
 		Global
 		;We need to compensate for when the script adds the
 		;x or o character to the grid. Otherwise the grid
@@ -163,6 +163,6 @@
 		Global
 		ToolTip, Winner! (%wintype%)
 		For key, value in array
-			GuiControl,, edGmTbl, % gameTable(key, "")
+			GuiControl,, edGmTbl, % drawTable(key, "")
 	}
 ;}
