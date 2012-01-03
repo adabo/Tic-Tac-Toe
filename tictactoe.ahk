@@ -18,7 +18,8 @@
 			       ,"t22", ""
 			       ,"t23", ""
 			       ,"t31", ""
-			       ,"t32", "")    
+			       ,"t32", ""
+			       ,"t33", "")  
 
 	OnMessage(0x0201, "WM_LBUTTONDOWN")
 	OnMessage(0x0204, "WM_RBUTTONDOWN")
@@ -52,6 +53,7 @@
 
 	sendCoord(mbt){
 		MouseGetPos, mposx, mposy
+		ToolTip, % mposx . "|" . mposy
 		getCoord(mposx, mposy, mbt)
 		checkWinner()
 	}
@@ -69,7 +71,7 @@
 	      y := 2
 	   else if (my > 130)
 	      y := 3
-	   coord := "t" . x . y
+	   coord := "t" . y . x
 	   CoordChecker(coord, mbt)
 	   Return
 	}
@@ -123,14 +125,21 @@
 			clearGui("Bottom Across")
 		If (table["t11"] == table["t21"] && table["t11"] == table["t31"]) && (table ["t11"] != null)
 			clearGui("Left Down")
+		If (table["t12"] == table["t22"] && table["t12"] == table["t32"]) && (table["t12"] != null)
+			clearGui("Middle Down")
+		If (table["t13"] == table["t23"] && table["t13"] == table["t33"]) && (table["13"] != null)
+			clearGui("Right Down")_
 		If (table["t11"] == table["t22"] && table["t11"] == table["t33"]) && (table ["t11"] != null)
 			clearGui("Top Left to Bottom Right")
+		If (table["t13"] == table["t22"] && table["t13"] == table["t31"]) && (table ["t13"] != null)
+			clearGui("Top Right to Bottom Left")
 		i := null
 	}
 
 	clearGui(wintype){
 		Global
 		ToolTip, Winner! (%wintype%)
+		Sleep, 1500
 		For key, value in table
 			GuiControl,, edGmTbl, % drawTable(key, "")
 	}
