@@ -10,29 +10,31 @@ ar_Coords := Object("crd1", "(mx < 50 && my < 75)"
 			  , "crd8", "(mx > 60 && mx < 100 && my > 130)"
 			  , "crd9", "(mx > 110 && my > 130)"
 
-xoGui(mx, my, mbt){
+getCoord(mx, my, mbt){
 	If (mx < 50 && my < 75)
+	   ;CoordChecker("t[row].[col]", [Mouse button])
+		CoordChecker("t1.1", mbt)
 	Else If (mx > 60 && mx < 105 && my < 75)
-		CoordChecker("t1", mbt)
+		CoordChecker("t1.2", mbt)
 	Else If (mx > 110 && my < 75)
-		CoordChecker("t2", mbt)
+		CoordChecker("t1.3", mbt)
 	Else If (mx < 50 && my > 80 && my < 120)
-		CoordChecker("t3", mbt)
+		CoordChecker("t2.1", mbt)
 	Else If (mx > 60 && mx < 100 && my > 80 && my < 120)
-		CoordChecker("t4", mbt)
+		CoordChecker("t2.2", mbt)
 	Else If (mx > 110 && my > 80 && my < 120)
-		CoordChecker("t5", mbt)
+		CoordChecker("t2.3", mbt)
 	Else If (mx < 50 && my > 130)
-		CoordChecker("t6", mbt)
+		CoordChecker("t3.1", mbt)
 	Else If (mx > 60 && mx < 100 && my > 130)
-		CoordChecker("t7", mbt)
+		CoordChecker("t3.2", mbt)
 	Else If (mx > 110 && my > 130)
-		CoordChecker("t8", mbt)
+		CoordChecker("t3.3", mbt)
 	Return
 }
 
-CoordChecker(){
-	GuiControl,, edGmTbl, % gameTable("t1", mbt)
+CoordChecker(corKey, mbt){
+	GuiControl,, edGmTbl, % gameTable(corKey, mbt)
 	array["t1"] := mbt
 }
 
